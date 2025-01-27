@@ -17,8 +17,7 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Market Expansion Strategy",
-    description:
-      "Led market analysis and expansion strategy for a Fortune 500 retail company",
+    description: "Led market analysis for a Fortune 500 retail company",
     longDescription:
       "Developed and implemented a comprehensive market expansion strategy that resulted in 35% revenue growth in new markets. Coordinated with cross-functional teams to ensure successful execution.",
     achievements: [
@@ -33,8 +32,7 @@ const projects: Project[] = [
   },
   {
     title: "Digital Transformation",
-    description:
-      "Spearheaded digital transformation initiative for a traditional business model",
+    description: "Spearheaded digital transformation for a traditional business",
     longDescription:
       "Led the digital transformation of a traditional business model, implementing modern technologies and processes that improved operational efficiency by 45%.",
     achievements: [
@@ -63,10 +61,7 @@ const projects: Project[] = [
   },
 ];
 
-const categories = [
-  "All",
-  ...new Set(projects.map((project) => project.category)),
-];
+const categories = ["All", ...new Set(projects.map((p) => p.category))];
 
 export function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -105,7 +100,6 @@ export function Portfolio() {
   const handleCloseModal = () => {
     setSelectedProject(null);
     document.body.style.overflow = "unset";
-    document.body.style.touchAction = "auto";
   };
 
   const filteredProjects = projects.filter(
@@ -114,7 +108,7 @@ export function Portfolio() {
   );
 
   return (
-    <section id="portfolio" className="py-24 animated-bg">
+    <section id="portfolio" className="py-24">
       <div className="max-w-6xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -122,9 +116,7 @@ export function Portfolio() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="floating-text text-4xl md:text-5xl font-bold mb-4">
-            Featured Projects
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto font-serif">
             Showcasing innovative business solutions and strategic achievements
           </p>
@@ -136,8 +128,10 @@ export function Portfolio() {
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`filter-button ${
-                selectedCategory === category ? "active" : ""
+              className={`px-4 py-2 rounded border transition-colors ${
+                selectedCategory === category
+                  ? "bg-purple-500 text-white border-purple-500"
+                  : "bg-white text-gray-600 border-gray-300 hover:bg-purple-50"
               }`}
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
@@ -158,38 +152,39 @@ export function Portfolio() {
                 layout: { duration: 0.3 },
                 opacity: { duration: 0.3 },
               }}
-              className="card group cursor-pointer"
+              className="card group cursor-pointer rounded-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
               key={project.title}
               onClick={() => setSelectedProject(project)}
             >
-              <div className="aspect-video relative bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 overflow-hidden rounded-t-xl">
+              <div className="relative overflow-hidden">
+                {/* Removed aspect ratio. Let image scale naturally. */}
                 <Image
                   src={project.image}
-                  alt={`${project.title} preview`}
-                  fill
-                  className="object-cover transition-all duration-300 group-hover:scale-110"
+                  alt={project.title}
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover transition-all duration-300 group-hover:scale-110"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-3 text-gray-900">
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 mb-4 line-clamp-2 font-serif">
+                <p className="text-gray-600 mb-4 font-serif">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.achievements.slice(0, 2).map((achievement) => (
                     <span
                       key={achievement}
-                      className="text-sm bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 text-gray-700 px-3 py-1 rounded-full font-medium backdrop-blur-sm"
+                      className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium"
                     >
                       {achievement}
                     </span>
                   ))}
                   {project.achievements.length > 2 && (
-                    <span className="text-sm bg-gray-100/80 backdrop-blur-sm text-gray-600 px-3 py-1 rounded-full font-medium">
+                    <span className="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
                       +{project.achievements.length - 2} more
                     </span>
                   )}
@@ -207,8 +202,7 @@ export function Portfolio() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{ duration: 0.2 }}
-              // CHANGED: items-start, overflow-y-auto, padding
-              className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 backdrop-blur-sm px-4 py-6"
+              className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 backdrop-blur-sm px-4 py-8"
               onClick={handleCloseModal}
             >
               <motion.div
@@ -219,8 +213,7 @@ export function Portfolio() {
                   opacity: 0,
                   transition: { duration: 0.15 },
                 }}
-                // CHANGED: Removed aspect-video to avoid large image forcing clipping
-                className="relative max-w-2xl w-full mt-6 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl"
+                className="relative max-w-2xl w-full bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative overflow-hidden rounded-t-2xl">
@@ -244,7 +237,7 @@ export function Portfolio() {
                     {selectedProject.achievements.map((achievement) => (
                       <span
                         key={achievement}
-                        className="text-sm bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 text-gray-700 px-3 py-1 rounded-full font-medium backdrop-blur-sm"
+                        className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium"
                       >
                         {achievement}
                       </span>
@@ -254,9 +247,9 @@ export function Portfolio() {
                     <button
                       type="button"
                       onClick={() => window.open(selectedProject.link, "_blank")}
-                      className="primary-button inline-flex items-center gap-2"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded bg-purple-500 text-white font-semibold hover:bg-purple-600 transition-colors"
                     >
-                      <span>View Details</span>
+                      View Details
                       <svg
                         className="w-4 h-4"
                         fill="none"
