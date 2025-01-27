@@ -278,8 +278,4 @@ button,
 	@apply blur-0 scale-100;
 }
 
-/* If you want a custom class for your dropdown styling */
-.mobile-dropdown {
-  @apply bg-white backdrop-blur-lg shadow-md rounded-md;
-  /* any additional styling, e.g. padding or animations */
-}
+
