@@ -11,20 +11,20 @@ const menuItems = [
 ];
 
 export function Navigation() {
-  // Example with optional 80px offset for a fixed header
+  // Example offset for a fixed header:
+  const headerOffset = 80;
+
   const handleClick = useCallback((href: string) => {
+    // Home case
     if (href === "#home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    const offset = 80; // Adjust as needed
     const element = document.querySelector(href);
     if (element) {
-      // position of the element in the page
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      // subtract the header offset
-      const offsetPosition = elementPosition - offset;
+      const elemRect = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elemRect - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -51,13 +51,13 @@ export function Navigation() {
           Sarah
         </motion.button>
 
-        {/* Inline Nav (no dropdown) */}
-        <div className="flex items-center space-x-8">
+        {/* Responsive Inline Nav */}
+        <div className="flex flex-wrap items-center justify-end gap-4 text-sm sm:text-base">
           {menuItems.map((item) => (
             <motion.button
               key={item.name}
               onClick={() => handleClick(item.href)}
-              className="text-gray-600 hover:text-purple-500 transition-colors font-medium"
+              className="text-gray-600 hover:text-purple-500 transition-colors font-medium px-2"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
