@@ -277,3 +277,7 @@ button,
 .image-blur.loaded {
 	@apply blur-0 scale-100;
 }
+
+section[id] {
+  scroll-margin-top: 80px; /* or whatever matches your header height */
+}
