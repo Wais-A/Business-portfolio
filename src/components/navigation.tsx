@@ -13,9 +13,10 @@ const menuItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Smooth scroll, optional offset for fixed header
+  // Optional offset for fixed header
   const headerOffset = 80;
-  const scrollToHref = useCallback((href: string) => {
+  const scrollToSection = useCallback((href: string) => {
+    // If linking to top of page:
     if (href === "#home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -35,7 +36,7 @@ export function Navigation() {
 
   const handleClick = (href: string) => {
     setIsOpen(false);
-    scrollToHref(href);
+    scrollToSection(href);
   };
 
   return (
@@ -45,37 +46,40 @@ export function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo (left) */}
-          <motion.button
-            onClick={() => handleClick("#home")}
-            className="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Sarah
-          </motion.button>
+      <nav className="container mx-auto px-4 py-4 flex items-center">
+        {/* Logo (left) */}
+        <motion.button
+          onClick={() => handleClick("#home")}
+          className="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Sarah
+        </motion.button>
 
-          {/* Desktop Navigation (right) */}
-          <div className="hidden md:flex items-center gap-4 text-sm whitespace-nowrap">
-            {menuItems.map((item) => (
-              <motion.button
-                key={item.name}
-                onClick={() => handleClick(item.href)}
-                className="text-gray-600 hover:text-purple-500 transition-colors font-medium"
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-              >
-                {item.name}
-              </motion.button>
-            ))}
-          </div>
+        {/* Spacer in the middle */}
+        <div className="flex-1" />
 
-          {/* Mobile Menu Button (right) */}
+        {/* Desktop Nav (right-aligned) */}
+        <div className="hidden md:flex justify-end items-center gap-4 text-sm whitespace-nowrap">
+          {menuItems.map((item) => (
+            <motion.button
+              key={item.name}
+              onClick={() => handleClick(item.href)}
+              className="text-gray-600 hover:text-purple-500 transition-colors font-medium"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              {item.name}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Mobile: Hamburger + Dropdown */}
+        <div className="relative md:hidden ml-4">
           <motion.button
             type="button"
-            className="md:hidden p-2"
+            className="p-2"
             onClick={() => setIsOpen(!isOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -98,32 +102,32 @@ export function Navigation() {
               />
             </div>
           </motion.button>
-        </div>
 
-        {/* Mobile Dropdown Menu */}
-        {isOpen && (
-          <motion.div
-            className="md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="py-4 space-y-4 text-sm">
-              {menuItems.map((item) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => handleClick(item.href)}
-                  className="block w-full text-left text-gray-600 hover:text-purple-500 transition-colors font-medium"
-                  whileHover={{ x: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {item.name}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
+          {/* Small dropdown anchored to the hamburger (top-right) */}
+          {isOpen && (
+            <motion.div
+              className="absolute top-full right-0 mt-2 bg-white/90 backdrop-blur-sm shadow-md rounded-md z-50 w-auto"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col py-2">
+                {menuItems.map((item) => (
+                  <motion.button
+                    key={item.name}
+                    onClick={() => handleClick(item.href)}
+                    className="px-4 py-2 text-right text-gray-600 hover:text-purple-500 transition-colors font-medium whitespace-nowrap"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item.name}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
       </nav>
     </motion.header>
   );
