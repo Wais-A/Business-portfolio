@@ -280,6 +280,6 @@ button,
 
 /* If you want a custom class for your dropdown styling */
 .mobile-dropdown {
-  @apply bg-white/90 backdrop-blur-sm shadow-md rounded-md;
+  @apply bg-white backdrop-blur-sm shadow-md rounded-md;
   /* any additional styling, e.g. padding or animations */
 }
