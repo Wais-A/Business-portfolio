@@ -20,7 +20,7 @@ const projects: Project[] = [
     description:
       "Led market analysis and expansion strategy for a Fortune 500 retail company",
     longDescription:
-      "Developed and implemented a comprehensive market expansion strategy that resulted in 35% revenue growth in new markets.",
+      "Developed and implemented a comprehensive market expansion strategy that resulted in 35% revenue growth in new markets. Coordinated with cross-functional teams to ensure successful execution.",
     achievements: [
       "35% Revenue Growth",
       "New Market Entry",
@@ -34,7 +34,7 @@ const projects: Project[] = [
   {
     title: "Digital Transformation",
     description:
-      "Spearheaded digital transformation initiative for a traditional business model",
+      "Spearheaded digital transformation for a traditional business model",
     longDescription:
       "Led the digital transformation of a traditional business model, implementing modern technologies and processes that improved operational efficiency by 45%.",
     achievements: [
@@ -63,6 +63,7 @@ const projects: Project[] = [
   },
 ];
 
+// Category filter array
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
 
 export function Portfolio() {
@@ -90,7 +91,7 @@ export function Portfolio() {
     };
   }, [selectedProject]);
 
-  // Handle browser back button
+  // Browser back button
   useEffect(() => {
     const handlePopState = () => {
       if (selectedProject) handleCloseModal();
@@ -104,22 +105,22 @@ export function Portfolio() {
     document.body.style.overflow = "unset";
   };
 
+  // Filtered array
   const filteredProjects = projects.filter(
-    (project) =>
-      selectedCategory === "All" || project.category === selectedCategory,
+    (p) => selectedCategory === "All" || p.category === selectedCategory
   );
 
   return (
-    <section id="portfolio" className="py-24">
+    <section id="portfolio" className="py-24 animated-bg">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Heading */}
+        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="floating-text text-4xl md:text-5xl font-bold mb-4">
             Featured Projects
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto font-serif">
@@ -133,10 +134,8 @@ export function Portfolio() {
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded border transition-colors ${
-                selectedCategory === category
-                  ? "bg-purple-500 text-white border-purple-500"
-                  : "bg-white text-gray-600 border-gray-300 hover:bg-purple-50"
+              className={`filter-button ${
+                selectedCategory === category ? "active" : ""
               }`}
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
@@ -148,58 +147,70 @@ export function Portfolio() {
         </div>
 
         {/* Projects Grid */}
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {filteredProjects.map((project) => (
             <motion.div
+              layout
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{
                 layout: { duration: 0.3 },
                 opacity: { duration: 0.3 },
               }}
-              className="card group cursor-pointer rounded-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
+              className="card group cursor-pointer relative" // uses .card from your CSS
               key={project.title}
               onClick={() => setSelectedProject(project)}
             >
-              <div className="relative overflow-hidden">
-                {/* Let the image scale naturally. No fixed aspect ratio. */}
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={600}
-                  height={400}
-                  className="w-full h-auto object-cover transition-all duration-300 group-hover:scale-110"
-                  priority
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 mb-4 font-serif">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.achievements.slice(0, 2).map((achievement) => (
-                    <span
-                      key={achievement}
-                      className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium"
-                    >
-                      {achievement}
-                    </span>
-                  ))}
-                  {project.achievements.length > 2 && (
-                    <span className="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
-                      +{project.achievements.length - 2} more
-                    </span>
-                  )}
+              {/* Fixed card height for uniformity */}
+              <div className="h-96 flex flex-col">
+                {/* Top half: Image */}
+                <div className="relative h-1/2 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-all duration-300 group-hover:scale-110"
+                    priority
+                  />
+                </div>
+                {/* Bottom half: Text */}
+                <div className="p-4 flex flex-col justify-between h-1/2">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                      {project.title}
+                    </h3>
+                    {/* line-clamp to avoid overflow */}
+                    <p className="text-gray-600 font-serif line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
+                  <div className="mt-3">
+                    <div className="flex flex-wrap gap-2">
+                      {project.achievements.slice(0, 2).map((achievement) => (
+                        <span
+                          key={achievement}
+                          className="text-sm bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 text-gray-700 px-3 py-1 rounded-full font-medium backdrop-blur-sm"
+                        >
+                          {achievement}
+                        </span>
+                      ))}
+                      {project.achievements.length > 2 && (
+                        <span className="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
+                          +{project.achievements.length - 2} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Project Modal */}
+        {/* Modal (Avoid Clipping) */}
         <AnimatePresence mode="wait">
           {selectedProject && (
             <motion.div
@@ -207,7 +218,7 @@ export function Portfolio() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{ duration: 0.2 }}
-              // KEY CHANGE: items-start, py-6, overflow-y-auto => not clipped on mobile
+              // Key: items-start, overflow-y-auto, padding
               className="fixed inset-0 z-50 flex items-start justify-center px-4 py-6 bg-black/50 backdrop-blur-sm overflow-y-auto"
               onClick={handleCloseModal}
             >
@@ -222,6 +233,7 @@ export function Portfolio() {
                 className="relative max-w-2xl w-full bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl mt-6"
                 onClick={(e) => e.stopPropagation()}
               >
+                {/* Modal Image */}
                 <div className="relative overflow-hidden rounded-t-2xl">
                   <Image
                     src={selectedProject.image}
@@ -232,6 +244,8 @@ export function Portfolio() {
                     priority
                   />
                 </div>
+
+                {/* Modal Content */}
                 <div className="p-6">
                   <h3 className="text-2xl font-bold mb-4 text-gray-900">
                     {selectedProject.title}
@@ -240,12 +254,12 @@ export function Portfolio() {
                     {selectedProject.longDescription || selectedProject.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {selectedProject.achievements.map((achievement) => (
+                    {selectedProject.achievements.map((ach) => (
                       <span
-                        key={achievement}
+                        key={ach}
                         className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium"
                       >
-                        {achievement}
+                        {ach}
                       </span>
                     ))}
                   </div>
@@ -253,9 +267,9 @@ export function Portfolio() {
                     <button
                       type="button"
                       onClick={() => window.open(selectedProject.link, "_blank")}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded bg-purple-500 text-white font-semibold hover:bg-purple-600 transition-colors"
+                      className="primary-button inline-flex items-center gap-2"
                     >
-                      View Details
+                      <span>View Details</span>
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -274,7 +288,8 @@ export function Portfolio() {
                     </button>
                   )}
                 </div>
-                {/* Close button */}
+
+                {/* Close Button */}
                 <button
                   onClick={handleCloseModal}
                   type="button"
