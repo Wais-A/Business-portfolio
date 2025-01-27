@@ -17,9 +17,10 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Market Expansion Strategy",
-    description: "Led market analysis for a Fortune 500 retail company",
+    description:
+      "Led market analysis and expansion strategy for a Fortune 500 retail company",
     longDescription:
-      "Developed and implemented a comprehensive market expansion strategy that resulted in 35% revenue growth in new markets. Coordinated with cross-functional teams to ensure successful execution.",
+      "Developed and implemented a comprehensive market expansion strategy that resulted in 35% revenue growth in new markets.",
     achievements: [
       "35% Revenue Growth",
       "New Market Entry",
@@ -32,7 +33,8 @@ const projects: Project[] = [
   },
   {
     title: "Digital Transformation",
-    description: "Spearheaded digital transformation for a traditional business",
+    description:
+      "Spearheaded digital transformation initiative for a traditional business model",
     longDescription:
       "Led the digital transformation of a traditional business model, implementing modern technologies and processes that improved operational efficiency by 45%.",
     achievements: [
@@ -110,13 +112,16 @@ export function Portfolio() {
   return (
     <section id="portfolio" className="py-24">
       <div className="max-w-6xl mx-auto px-4">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Featured Projects
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto font-serif">
             Showcasing innovative business solutions and strategic achievements
           </p>
@@ -157,7 +162,7 @@ export function Portfolio() {
               onClick={() => setSelectedProject(project)}
             >
               <div className="relative overflow-hidden">
-                {/* Removed aspect ratio. Let image scale naturally. */}
+                {/* Let the image scale naturally. No fixed aspect ratio. */}
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -202,7 +207,8 @@ export function Portfolio() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 backdrop-blur-sm px-4 py-8"
+              // KEY CHANGE: items-start, py-6, overflow-y-auto => not clipped on mobile
+              className="fixed inset-0 z-50 flex items-start justify-center px-4 py-6 bg-black/50 backdrop-blur-sm overflow-y-auto"
               onClick={handleCloseModal}
             >
               <motion.div
@@ -213,13 +219,13 @@ export function Portfolio() {
                   opacity: 0,
                   transition: { duration: 0.15 },
                 }}
-                className="relative max-w-2xl w-full bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl"
+                className="relative max-w-2xl w-full bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl mt-6"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative overflow-hidden rounded-t-2xl">
                   <Image
                     src={selectedProject.image}
-                    alt={`${selectedProject.title} preview`}
+                    alt={selectedProject.title}
                     width={1200}
                     height={675}
                     className="w-full h-auto object-cover"
@@ -268,6 +274,7 @@ export function Portfolio() {
                     </button>
                   )}
                 </div>
+                {/* Close button */}
                 <button
                   onClick={handleCloseModal}
                   type="button"
