@@ -105,7 +105,7 @@ const Hero = () => {
 				<div className="text-center space-y-8">
 					{/* Animated heading */}
 					<motion.h1
-						className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-md space-y-4"
+						className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white space-y-4"
 						variants={textVariants}
 						style={{ y }}
 					>
@@ -122,7 +122,7 @@ const Hero = () => {
 							custom={1}
 						>
 							Through{" "}
-							<span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+							<span className="bg-gradient-to-r from-purple-300 via-indigo-300 to-pink-300 bg-clip-text text-transparent drop-shadow-md">
 								Strategic Technology
 							</span>
 						</motion.span>
@@ -130,13 +130,12 @@ const Hero = () => {
 
 					{/* Animated subtitle */}
 					<motion.p
-						className="mt-6 text-lg md:text-xl text-gray-100 max-w-2xl mx-auto font-serif typewriter"
+						className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-serif typewriter"
 						variants={textVariants}
 						custom={2}
 					>
 						{phrases[index]}
 					</motion.p>
-
 					{/* Animated button */}
 					<motion.div
 						className="mt-10"
