@@ -2,9 +2,13 @@
 
 import { Contact } from "@/components/contact";
 import { Experience } from "@/components/experience";
+import { FeatureHighlights } from "@/components/feature-highlights";
+import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { Navigation } from "@/components/navigation";
 import { Portfolio } from "@/components/portfolio";
+import { ProductCarousel } from "@/components/product-carousel";
+import { TypographyShowcase } from "@/components/typography-showcase";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -34,8 +38,20 @@ export default function Home() {
 						<Hero />
 					</motion.section>
 
+					<motion.section {...fadeInUp} className="relative" id="features">
+						<FeatureHighlights />
+					</motion.section>
+
 					<motion.section {...fadeInUp} className="relative" id="experience">
 						<Experience />
+					</motion.section>
+
+					<motion.section {...fadeInUp} className="relative" id="products">
+						<ProductCarousel />
+					</motion.section>
+
+					<motion.section {...fadeInUp} className="relative" id="typography">
+						<TypographyShowcase />
 					</motion.section>
 
 					<motion.section {...fadeInUp} className="relative" id="portfolio">
@@ -77,6 +93,7 @@ export default function Home() {
 					/>
 				</motion.div>
 			</main>
+			<Footer />
 		</>
 	);
 }

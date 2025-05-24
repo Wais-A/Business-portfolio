@@ -62,13 +62,22 @@ export function Navigation() {
 
 				{/* Desktop Nav (right-aligned) */}
 				<div className="hidden md:flex justify-end items-center gap-4 text-sm whitespace-nowrap">
-					{menuItems.map((item) => (
+					{menuItems.map((item, i) => (
 						<motion.button
 							key={item.name}
 							onClick={() => handleClick(item.href)}
 							className="text-gray-600 hover:text-purple-500 transition-colors font-medium"
 							whileHover={{ y: -2 }}
 							whileTap={{ y: 0 }}
+							initial={{ opacity: 0, y: -20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, amount: 0.8 }}
+							transition={{
+								duration: 0.5,
+								delay: i * 0.1,
+								type: "spring",
+								bounce: 0.4,
+							}}
 						>
 							{item.name}
 						</motion.button>

@@ -166,13 +166,7 @@ export function Contact() {
 						) : (
 							<form onSubmit={handleSubmit} className="space-y-6">
 								<div className="grid grid-cols-1 gap-6">
-									<div>
-										<label
-											htmlFor="name"
-											className="block text-sm font-medium text-gray-700 mb-1"
-										>
-											Name
-										</label>
+									<div className="relative">
 										<input
 											type="text"
 											id="name"
@@ -180,17 +174,17 @@ export function Contact() {
 											required
 											value={formState.name}
 											onChange={handleChange}
-											className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors"
-											placeholder="Your name"
+											className="peer w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors placeholder-transparent"
+											placeholder="Name"
 										/>
-									</div>
-									<div>
 										<label
-											htmlFor="email"
-											className="block text-sm font-medium text-gray-700 mb-1"
+											htmlFor="name"
+											className="absolute left-4 top-2 text-gray-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
 										>
-											Email
+											Name
 										</label>
+									</div>
+									<div className="relative">
 										<input
 											type="email"
 											id="email"
@@ -198,17 +192,17 @@ export function Contact() {
 											required
 											value={formState.email}
 											onChange={handleChange}
-											className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors"
-											placeholder="your@email.com"
+											className="peer w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors placeholder-transparent"
+											placeholder="Email"
 										/>
-									</div>
-									<div>
 										<label
-											htmlFor="subject"
-											className="block text-sm font-medium text-gray-700 mb-1"
+											htmlFor="email"
+											className="absolute left-4 top-2 text-gray-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
 										>
-											Subject
+											Email
 										</label>
+									</div>
+									<div className="relative">
 										<input
 											type="text"
 											id="subject"
@@ -216,17 +210,17 @@ export function Contact() {
 											required
 											value={formState.subject}
 											onChange={handleChange}
-											className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors"
-											placeholder="What would you like to discuss?"
+											className="peer w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors placeholder-transparent"
+											placeholder="Subject"
 										/>
-									</div>
-									<div>
 										<label
-											htmlFor="message"
-											className="block text-sm font-medium text-gray-700 mb-1"
+											htmlFor="subject"
+											className="absolute left-4 top-2 text-gray-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
 										>
-											Message
+											Subject
 										</label>
+									</div>
+									<div className="relative">
 										<textarea
 											id="message"
 											name="message"
@@ -234,9 +228,15 @@ export function Contact() {
 											value={formState.message}
 											onChange={handleChange}
 											rows={4}
-											className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors resize-none"
-											placeholder="Your message here..."
+											className="peer w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-purple-500 transition-colors resize-none placeholder-transparent"
+											placeholder="Message"
 										/>
+										<label
+											htmlFor="message"
+											className="absolute left-4 top-2 text-gray-500 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs"
+										>
+											Message
+										</label>
 									</div>
 								</div>
 								<motion.button
