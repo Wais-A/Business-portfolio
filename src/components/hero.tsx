@@ -91,6 +91,11 @@ const Hero = () => {
 			className="relative min-h-screen overflow-hidden animated-bg animated-gradient"
 			style={{ backgroundPositionY: bgY }}
 		>
+			{/* Overlay to ensure text/background contrast */}
+			<div
+				className="absolute inset-0 bg-black/40 dark:bg-black/60"
+				aria-hidden="true"
+			/>
 			{/* Content */}
 			<motion.div
 				className="relative z-10 max-w-6xl mx-auto px-4 py-32 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center"
@@ -131,7 +136,6 @@ const Hero = () => {
 					>
 						{phrases[index]}
 					</motion.p>
-
 					{/* Animated button */}
 					<motion.div
 						className="mt-10"

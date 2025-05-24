@@ -3,6 +3,7 @@ import type React from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://your-domain.com"),
 	title: "Professional Portfolio | Business & Strategy",
 	description:
 		"A showcase of business strategy, innovation, and professional achievements",
