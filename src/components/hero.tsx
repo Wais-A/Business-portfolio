@@ -91,6 +91,11 @@ const Hero = () => {
 			className="relative min-h-screen overflow-hidden animated-bg animated-gradient"
 			style={{ backgroundPositionY: bgY }}
 		>
+			{/* Overlay to ensure text/background contrast */}
+			<div
+				className="absolute inset-0 bg-black/40 dark:bg-black/60"
+				aria-hidden="true"
+			/>
 			{/* Content */}
 			<motion.div
 				className="relative z-10 max-w-6xl mx-auto px-4 py-32 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center"
@@ -100,7 +105,7 @@ const Hero = () => {
 				<div className="text-center space-y-8">
 					{/* Animated heading */}
 					<motion.h1
-						className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white space-y-4"
+						className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-md space-y-4"
 						variants={textVariants}
 						style={{ y }}
 					>
@@ -125,7 +130,7 @@ const Hero = () => {
 
 					{/* Animated subtitle */}
 					<motion.p
-						className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-serif typewriter"
+						className="mt-6 text-lg md:text-xl text-gray-100 max-w-2xl mx-auto font-serif typewriter"
 						variants={textVariants}
 						custom={2}
 					>
