@@ -122,7 +122,7 @@ const Hero = () => {
 							custom={1}
 						>
 							Through{" "}
-							<span className="bg-gradient-to-r from-purple-300 via-indigo-300 to-pink-300 bg-clip-text text-transparent drop-shadow-md">
+							<span className="bg-gradient-to-r from-yellow-300 via-green-300 to-blue-300 bg-clip-text text-transparent drop-shadow-md">
 								Strategic Technology
 							</span>
 						</motion.span>
