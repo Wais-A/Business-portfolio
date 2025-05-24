@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import { Lora, Playfair_Display } from "next/font/google";
 import type React from "react";
 import "./globals.css";
-
-const playfair = Playfair_Display({
-	subsets: ["latin"],
-	variable: "--font-sans",
-});
-
-const lora = Lora({
-	subsets: ["latin"],
-	variable: "--font-serif",
-});
 
 export const metadata: Metadata = {
 	title: "Professional Portfolio | Business & Strategy",
@@ -63,11 +52,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={`${playfair.variable} ${lora.variable} font-sans antialiased`}
-			>
-				{children}
-			</body>
+			<body className="font-sans antialiased">{children}</body>
 		</html>
 	);
 }
