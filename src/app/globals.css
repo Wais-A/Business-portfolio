@@ -347,6 +347,9 @@ button,
 
 .flip-card {
 	perspective: 1000px;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	will-change: transform;
 }
 
 .flip-inner {
