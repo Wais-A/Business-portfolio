@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const features = [
@@ -120,29 +120,37 @@ export function FeatureHighlights() {
 }
 
 function FeatureCard({ feature }: { feature: (typeof features)[number] }) {
-	const [flipped, setFlipped] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	return (
 		<motion.div
 			variants={item}
-			className={`tilt-card flip-card card cursor-pointer ${flipped ? "flipped" : ""}`}
-			onClick={() => setFlipped((v) => !v)}
+			className="card card-container cursor-pointer"
+			onMouseEnter={() => setOpen(true)}
+			onMouseLeave={() => setOpen(false)}
+			onClick={() => setOpen((v) => !v)}
 			whileHover={{ scale: 1.02 }}
 		>
-			<div className="flip-inner p-8 h-80 flex flex-col justify-center items-center text-center">
-				<div className="flip-front flex flex-col items-center gap-4">
-					<div className="tilt-inner w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center animate-pulse">
-						{feature.icon}
-					</div>
-					<h3 className="text-xl font-semibold text-gray-900">
-						{feature.title}
-					</h3>
-					<p className="text-gray-600 font-serif">{feature.description}</p>
+			<div className="p-8 h-80 flex flex-col justify-center items-center text-center gap-4">
+				<div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center animate-pulse">
+					{feature.icon}
 				</div>
-				<div className="flip-back flex flex-col items-center justify-center gap-4 p-4">
-					<p className="text-gray-700 font-serif">{feature.details}</p>
-				</div>
+				<h3 className="text-xl font-semibold text-gray-900">{feature.title}</h3>
+				<p className="text-gray-600 font-serif">{feature.description}</p>
 			</div>
+			<AnimatePresence>
+				{open && (
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: 20 }}
+						transition={{ duration: 0.3 }}
+						className="card-overlay"
+					>
+						<p className="text-gray-700 font-serif">{feature.details}</p>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</motion.div>
 	);
 }

@@ -332,42 +332,14 @@ button,
 	}
 }
 
-/* 3D tilt and flip cards */
-.tilt-card {
-	perspective: 1000px;
-}
-
-.tilt-inner {
-	transition: transform 0.4s;
-}
-
-.tilt-card:hover .tilt-inner {
-	transform: rotateY(10deg) rotateX(5deg);
-}
-
-.flip-card {
-	perspective: 1000px;
-}
-
-.flip-inner {
-	transition: transform 0.6s;
-	transform-style: preserve-3d;
+/* Card hover effects */
+.card-container {
 	position: relative;
+	overflow: hidden;
 }
 
-.flip-card.flipped .flip-inner {
-	transform: rotateY(180deg);
-}
-
-.flip-front,
-.flip-back {
-	backface-visibility: hidden;
-}
-
-.flip-back {
-	transform: rotateY(180deg);
-	position: absolute;
-	inset: 0;
+.card-overlay {
+	@apply absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8;
 }
 
 /* Ripple button */
